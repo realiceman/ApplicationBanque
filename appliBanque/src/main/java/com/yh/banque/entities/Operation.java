@@ -3,11 +3,27 @@ package com.yh.banque.entities;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public class Operation implements Serializable{
+   @Id
+   @GeneratedValue(strategy=GenerationType.IDENTITY)
    private Long numeroOperation;
    private Date dateOperation;
    private double montant;
+   @ManyToOne
+   @JoinColumn(name="CODE_CPTE")
    private Compte compte;
+   @ManyToOne
+   @JoinColumn(name="CODE_EMP")
    private Employe employe;
    
 public Operation() {
