@@ -30,6 +30,17 @@ public class Client implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
+    
+	
+	
+	public Client(String nomClient, String adresseClient) {
+		super();
+		this.nomClient = nomClient;
+		this.adresseClient = adresseClient;
+	}
+
+
+
 
 	public Client(Long codeClient, String nomClient, String adresseClient,
 			Collection<Compte> comptes) {
