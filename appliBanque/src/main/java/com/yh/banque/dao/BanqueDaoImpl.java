@@ -76,7 +76,7 @@ public class BanqueDaoImpl implements IBanqueDao{
 
 	@Override
 	public List<Operation> consulterOperations(String codeCpte) {
-		Query req=em.createQuery("select 0 from Operation o where o.compte.codeCompte=:x");
+		Query req=em.createQuery("select o from Operation o where o.compte.codeCompte=:x");
 		req.setParameter("x", codeCpte);
 		return req.getResultList();
 	}
