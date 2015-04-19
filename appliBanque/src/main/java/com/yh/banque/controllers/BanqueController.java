@@ -45,4 +45,36 @@ public class BanqueController {
 		model.addAttribute("banqueForm", bf);
 		return "banque";
 	}
+	
+	@RequestMapping(value="/saveOperation")
+	public String saveOp(@Valid BanqueForm bf, BindingResult bindingResult){
+		
+	      try {
+				Compte cp = metier.consulterCompte(bf.getCode());
+				bf.setTypeCompte(cp.getClass().getSimpleName());
+				bf.setCompte(cp);
+				
+					if(bindingResult.hasErrors()){
+						return "banque";
+					}
+				   if(bf.getAction()!=null){	
+					   if(bf.getTypeOperation().equalsIgnoreCase("VER")){
+						   metier.verser(bf.getMontant(), bf.getCode(), 1L);
+					   }
+					   else if(bf.getTypeOperation().equalsIgnoreCase("RET")){
+						  metier.retirer(bf.getMontant(), bf.getCode(), 1L);
+					   }
+					   else if(bf.getTypeOperation().equalsIgnoreCase("VIR")){
+						   metier.virement(bf.getMontant(), bf.getCode(), bf.getCode2(), 1L);
+					   }
+				   }
+		   } catch (Exception e) {
+				bf.setException(e.getMessage());  //dao -> consulterCompte() ->  throw new RuntimeException("compte introuvable")
+			}
+	        
+		   List<Operation> ops = metier.consulterOperations(bf.getCode());
+		   bf.setOperations(ops);
+		   
+		return "banque";
+	}
 }

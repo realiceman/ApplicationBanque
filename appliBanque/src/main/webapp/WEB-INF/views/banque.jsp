@@ -54,14 +54,50 @@
     </div>
     <div>
       <table>
+       <tr>
          <td>Nom Client</td> <td>${banqueForm.compte.client.nomClient}</td>
+       </tr>
       </table>
     </div>
         <div>
       <table>
+        <tr>
          <td>Nom Employé</td> <td>${banqueForm.compte.employe.nomEmploye}</td>
+        </tr>
       </table>
     </div>
+    
+    <div>
+      <f:form modelAttribute="banqueForm" action="saveOperation">
+        <f:hidden path="code" />
+        <table>
+         <tr>
+         <td>Versement:<f:radiobutton path="typeOperation" value="VER" onclick="this.form.submit()"/></td>
+         <td>Retrait:<f:radiobutton path="typeOperation" value="RET" onclick="this.form.submit()"/></td>
+         <td>Virement:<f:radiobutton path="typeOperation" value="VIR" onclick="this.form.submit()"/></td>
+         </tr>
+         <c:if test="${not empty banqueForm.typeOperation}">
+             <tr>
+                <td>Montant :</td>
+                <td><f:input path="montant"/></td>
+                <td><f:errors path="montant"></f:errors></td>
+             </tr>
+            
+               <c:if test="${banqueForm.typeOperation=='VIR'}">
+                  <tr>
+                     <td>Vers le compte :</td>
+                     <td><f:input path="code2"/></td>
+                     <td><f:errors path="code2"></f:errors></td>
+                  </tr>
+               </c:if>
+              <tr>
+              <td><input type="submit" name="action" value="valider"></td>
+              </tr>
+         </c:if>
+         </table>
+      </f:form>
+    </div>
+    
     <div>
       <table class="table1">
          <tr>

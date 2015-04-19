@@ -2,6 +2,7 @@ package com.yh.banque.models;
 
 import java.util.List;
 
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -17,7 +18,40 @@ public class BanqueForm {
   private String typeCompte;
   private String exception;
   private List<Operation> operations;
+  private String typeOperation;
+    @DecimalMin(value="50")
+  private double montant=50;
+    @NotEmpty
+	@Size(min=3,max=10)
+  private String code2="XXX";
+  private String action;
   
+  
+  
+public String getAction() {
+	return action;
+}
+public void setAction(String action) {
+	this.action = action;
+}
+public double getMontant() {
+	return montant;
+}
+public void setMontant(double montant) {
+	this.montant = montant;
+}
+public String getCode2() {
+	return code2;
+}
+public void setCode2(String code2) {
+	this.code2 = code2;
+}
+public String getTypeOperation() {
+	return typeOperation;
+}
+public void setTypeOperation(String typeOperation) {
+	this.typeOperation = typeOperation;
+}
 public String getCode() {
 	return code;
 }
