@@ -32,15 +32,7 @@ public class BanqueController {
 		if(bindingResult.hasErrors()){
 			return "banque";
 		}
-		try {
-			Compte cp = metier.consulterCompte(bf.getCode());
-			bf.setTypeCompte(cp.getClass().getSimpleName());
-			bf.setCompte(cp);
-			List<Operation> ops = metier.consulterOperations(bf.getCode());
-			bf.setOperations(ops);
-		} catch (Exception e) {
-			bf.setException(e.getMessage());  //dao -> consulterCompte() ->  throw new RuntimeException("compte introuvable")
-		}
+		chargerCompte(bf);
 		
 		model.addAttribute("banqueForm", bf);
 		return "banque";
@@ -49,32 +41,46 @@ public class BanqueController {
 	@RequestMapping(value="/saveOperation")
 	public String saveOp(@Valid BanqueForm bf, BindingResult bindingResult){
 		
-	      try {
-				Compte cp = metier.consulterCompte(bf.getCode());
-				bf.setTypeCompte(cp.getClass().getSimpleName());
-				bf.setCompte(cp);
-				
+		try {
 					if(bindingResult.hasErrors()){
 						return "banque";
 					}
+ 
+					
 				   if(bf.getAction()!=null){	
-					   if(bf.getTypeOperation().equalsIgnoreCase("VER")){
-						   metier.verser(bf.getMontant(), bf.getCode(), 1L);
-					   }
-					   else if(bf.getTypeOperation().equalsIgnoreCase("RET")){
-						  metier.retirer(bf.getMontant(), bf.getCode(), 1L);
-					   }
-					   else if(bf.getTypeOperation().equalsIgnoreCase("VIR")){
-						   metier.virement(bf.getMontant(), bf.getCode(), bf.getCode2(), 1L);
-					   }
+									   if(bf.getTypeOperation().equalsIgnoreCase("VER")){
+										   metier.verser(bf.getMontant(), bf.getCode(), 1L);
+									   }
+									   else if(bf.getTypeOperation().equalsIgnoreCase("RET")){
+										  metier.retirer(bf.getMontant(), bf.getCode(), 1L);
+									   }
+									   else if(bf.getTypeOperation().equalsIgnoreCase("VIR")){
+										   metier.virement(bf.getMontant(), bf.getCode(), bf.getCode2(), 1L);
+									   }
 				   }
-		   } catch (Exception e) {
-				bf.setException(e.getMessage());  //dao -> consulterCompte() ->  throw new RuntimeException("compte introuvable")
+			} catch (Exception e) {
+				 bf.setException(e.getMessage());  //dao -> consulterCompte() ->  throw new RuntimeException("compte introuvable")
 			}
-	        
-		   List<Operation> ops = metier.consulterOperations(bf.getCode());
-		   bf.setOperations(ops);
-		   
+		  
+			   chargerCompte(bf);	 
 		return "banque";
 	}
+	
+	
+	public void chargerCompte(BanqueForm bf){
+		  try {
+				Compte cp = metier.consulterCompte(bf.getCode());
+				bf.setTypeCompte(cp.getClass().getSimpleName());
+				bf.setCompte(cp);
+				int pos=bf.getNbLignes()*bf.getPage(); //si page=0 je commence à 0, si page 1 je commence à 5....
+			    List<Operation> ops = metier.consulterOperations(bf.getCode(),pos,bf.getNbLignes());
+			    bf.setOperations(ops);
+			    long nbOp=metier.getNombreOperation(bf.getCode());
+			    bf.setNombrePages((int) (nbOp/bf.getNbLignes())+1);
+	       }catch (Exception e) {
+		        bf.setException(e.getMessage());  //dao -> consulterCompte() ->  throw new RuntimeException("compte introuvable")
+	        }
+   }
+	
+	
 }

@@ -16,7 +16,7 @@ public interface IBanqueDao {
   public Compte addCompte(Compte cp, Long codeCli, Long codeEmp);
   public Operation addOperation(Operation op, String codeCpte, Long codeEmp);
   public Compte consulterCompte(String codeCpte);
-  public List<Operation> consulterOperations(String codeCpte);
+  public List<Operation> consulterOperations(String codeCpte, int position, int nboperation);
   public Client consulterClient(Long codeClient);
   public List<Client> consulterClients(String mc);
   public List<Compte> getComptesByClient(Long codeCli);
@@ -24,4 +24,5 @@ public interface IBanqueDao {
   public List<Employe> getEmployes();
   public List<Groupe> getGroupes();
   public List<Employe> getEmployesByGroupe(Long codeGr);
+  public long getNombreOperation(String numCpte);
 }

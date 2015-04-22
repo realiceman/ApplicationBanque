@@ -25,9 +25,28 @@ public class BanqueForm {
 	@Size(min=3,max=10)
   private String code2="XXX";
   private String action;
+  private int page=0;
+  private int nbLignes=3;
+  private int nombrePages;
   
-  
-  
+public int getPage() {
+	return page;
+}
+public void setPage(int page) {
+	this.page = page;
+}
+public int getNbLignes() {
+	return nbLignes;
+}
+public void setNbLignes(int nbLignes) {
+	this.nbLignes = nbLignes;
+}
+public int getNombrePages() {
+	return nombrePages;
+}
+public void setNombrePages(int nombrePages) {
+	this.nombrePages = nombrePages;
+}
 public String getAction() {
 	return action;
 }

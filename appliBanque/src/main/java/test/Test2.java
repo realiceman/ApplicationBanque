@@ -21,7 +21,7 @@ public class Test2 {
 		System.out.println("date :"+ cp.getDateCreation());
 	    System.out.println("client :"+ cp.getClient().getNomClient());
 	    System.out.println("Employé :"+ cp.getEmploye().getNomEmploye());
-	    List<Operation> ops = metier.consulterOperations("CC1");
+	    List<Operation> ops = metier.consulterOperations("CC1",0,1);
 	    for (Operation op : ops) {
 	    	System.out.println("************");
 	    	System.out.println(op.getNumeroOperation());

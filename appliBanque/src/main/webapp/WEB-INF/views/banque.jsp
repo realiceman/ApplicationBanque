@@ -113,6 +113,12 @@
          
          </c:forEach>
       </table>
+      <div>
+         <c:forEach begin="1" end="${banqueForm.nombrePages}" var="p">
+         <c:choose></c:choose>
+          <span>Page ${p}</span>
+         </c:forEach>
+      </div>
     </div>
     
   </c:if>
