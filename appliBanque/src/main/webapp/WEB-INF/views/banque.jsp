@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/style1.css" />
 </head>
 <body>
+    <div class="logo"></div>
    <div>
      <f:form modelAttribute="banqueForm" method="post" action="chargerCompte">
       <table>
@@ -55,14 +56,14 @@
     <div>
       <table>
        <tr>
-         <td>Nom Client</td> <td>${banqueForm.compte.client.nomClient}</td>
+         <td>Nom Client :</td> <td>${banqueForm.compte.client.nomClient}</td>
        </tr>
       </table>
     </div>
         <div>
       <table>
         <tr>
-         <td>Nom Employé</td> <td>${banqueForm.compte.employe.nomEmploye}</td>
+         <td>Nom Employé :</td> <td>${banqueForm.compte.employe.nomEmploye}</td>
         </tr>
       </table>
     </div>
@@ -114,9 +115,16 @@
          </c:forEach>
       </table>
       <div>
-         <c:forEach begin="1" end="${banqueForm.nombrePages}" var="p">
-         <c:choose></c:choose>
-          <span>Page ${p}</span>
+         <c:forEach begin="0" end="${banqueForm.nombrePages-1}" var="p">
+         <c:choose>
+            <c:when test="${p==banqueForm.page }"> <!-- si page p = page courante, pas besoin de lien -->
+                <span class="current">Page ${p}</span>    
+            </c:when>
+            <c:otherwise>
+                <span class="notCurrent"><a href="chargerCompte?page=${p}&code=${banqueForm.code}">Page ${p}</a></span>
+            </c:otherwise>
+         </c:choose>
+         
          </c:forEach>
       </div>
     </div>
@@ -131,5 +139,6 @@
    </div>
  
  </c:if>
+
 </body>
 </html>

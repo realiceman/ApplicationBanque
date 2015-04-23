@@ -1,3 +1,8 @@
+body{
+	background-color: black;
+	color:white;
+	width: 500px;
+}
 div{
 	border:1px dotted gray;
 	padding: 10px;
@@ -16,4 +21,35 @@ div{
 	padding: 10px;
 	margin:10px;
 	background: white;
+	color:black;
+}
+
+span.current{
+	border:1px solid #804040;
+	padding: 10px;
+	margin:10px;
+	background: #804040;
+	
+}
+
+span.notCurrent{
+	border:1px solid #808080;
+	padding: 10px;
+	margin:10px;
+	background: white;
+	
+	
+}
+
+span.notCurrent a{
+	text-decoration: none;
+}
+
+.logo{
+	position: absolute;
+	margin-left: 550px;
+	width: 600px;
+	height: 250px;
+	background-image: url("bank.png");
+	margin-top: 15%;
 }
