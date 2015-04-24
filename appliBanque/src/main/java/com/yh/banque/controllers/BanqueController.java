@@ -16,6 +16,7 @@ import com.yh.banque.metier.IBanqueMetier;
 import com.yh.banque.models.BanqueForm;
 
 @Controller
+@RequestMapping(value="/adminBanque")
 public class BanqueController {
 	@Autowired          // on demande a spring de chercher un objet deja créé pdt l'injec des dep,  et de l'associer au controleur
     private IBanqueMetier metier;
